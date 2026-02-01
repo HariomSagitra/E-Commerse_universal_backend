@@ -13,7 +13,7 @@ import cors from 'cors'
 
 //dotenv.config({path:"./config.env"})
 const app = express()
-const PORTNO = process.env.PORT_NO||3000
+const PORT = process.env.PORT_NO||3000
 
 
 console.log("Current Date & Time:",getDateTime())
@@ -65,6 +65,6 @@ app.use("/",indexRoute)
 app.use("/customer",customerRoute)
 app.use("/admin",adminRoute)
 
-app.listen(PORTNO,()=>{
-    console.log(`Server Listening at http://localhost:${PORTNO}`)
+app.listen(PORT,()=>{
+    console.log(`Server Listening at http://localhost:${PORT}`)
 })
