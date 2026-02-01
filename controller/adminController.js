@@ -1,8 +1,11 @@
 import ProductModal from '../modal/productModal.js'
 import fs from 'fs'
 import customerModal from '../modal/customerModal.js'
+// import dotenv from 'dotenv'
+// dotenv.config({ path: "../config/config.env" })
 import dotenv from 'dotenv'
-dotenv.config({ path: "../config/config.env" })
+dotenv.config()
+
 
 class AdminController {
     static addproduct = async (req, res) => {
@@ -91,7 +94,9 @@ class AdminController {
                     type: data.mimetype,
                     name: data.filename,
                     //path: `http://localhost:${process.env.PORT_NO}/` + data.path,
-                    path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
+                    // path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
+                    path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`
+
 
 
                     size: data.size
