@@ -60,15 +60,22 @@ CORS or Cross-Origin Resource Sharing in Node. js is a mechanism by which a fron
 //     next();
 // });
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      process.env.FRONTEND_URL
-    ],
-    credentials: true
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:3000",
+//       process.env.FRONTEND_URL
+//     ],
+//     credentials: true
+//   })
+// );
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.options("*", cors());
 
 
 
