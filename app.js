@@ -1,3 +1,6 @@
+
+import dotenv from 'dotenv'
+dotenv.config(); 
 import express from 'express'
 import indexRoute from './route/indexRoute.js'
 import customerRoute from './route/customerRoute.js'
@@ -7,8 +10,7 @@ import connectDB from './connectdb/dbconnect.js'
 import { getDateTime } from './utility/GetDate.js';
 
 import cors from 'cors'
-import dotenv from 'dotenv'
-dotenv.config(); 
+
 //dotenv.config({path:"./config.env"})
 const app = express()
 const PORTNO = process.env.PORT_NO||3000
