@@ -20,8 +20,6 @@ class AdminController {
                 name: data.filename,
                 //path: `http://localhost:${process.env.PORT_NO}/` + data.path,
                 path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
-
-
                 size: data.size
             }
         })
