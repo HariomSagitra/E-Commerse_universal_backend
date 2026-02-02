@@ -32,7 +32,7 @@ class AdminController {
     };
 });
 
-        })
+        
         console.log("New Product:", newprod)
         try {
             const uploadproduct = new ProductModal({
