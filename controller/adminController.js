@@ -14,14 +14,24 @@ class AdminController {
         const productimagearr = req.files
         console.log(productimagearr)
        
+        // var newprod = productimagearr.map((data) => {
+        //     return {
+        //         type: data.mimetype,
+        //         name: data.filename,
+        //         //path: `http://localhost:${process.env.PORT_NO}/` + data.path,
+        //         path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
+        //         size: data.size
+        //     }
+
         var newprod = productimagearr.map((data) => {
-            return {
-                type: data.mimetype,
-                name: data.filename,
-                //path: `http://localhost:${process.env.PORT_NO}/` + data.path,
-                path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
-                size: data.size
-            }
+    return {
+        type: data.mimetype,
+        name: data.filename,
+        path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
+        size: data.size
+    };
+});
+
         })
         console.log("New Product:", newprod)
         try {
