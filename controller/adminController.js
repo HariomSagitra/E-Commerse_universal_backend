@@ -1,8 +1,6 @@
 import ProductModal from '../modal/productModal.js'
 import fs from 'fs'
 import customerModal from '../modal/customerModal.js'
-// import dotenv from 'dotenv'
-// dotenv.config({ path: "../config/config.env" })
 import dotenv from 'dotenv'
 dotenv.config()
 
