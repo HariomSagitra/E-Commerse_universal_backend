@@ -9,49 +9,61 @@ dotenv.config()
 
 class AdminController {
     static addproduct = async (req, res) => {
-        const { product_brand, product_variant_name, product_description, product_mrp, product_sp, product_discount, product_size, product_color, product_quantity, product_availability } = req.body
-        console.log(req.body)
-        const productimagearr = req.files
-        console.log(productimagearr)
-       
+    const {
+        product_brand,
+        product_variant_name,
+        product_description,
+        product_mrp,
+        product_sp,
+        product_discount,
+        product_size,
+        product_color,
+        product_quantity,
+        product_availability
+    } = req.body;
 
-var newprod = productimagearr.map((data) => {
-    return {
+    const productimagearr = req.files;
+
+    if (!productimagearr || productimagearr.length === 0) {
+        return res.status(400).json({ msg: "No images uploaded" });
+    }
+
+    const newprod = productimagearr.map(data => ({
         type: data.mimetype,
         name: data.filename,
         path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
         size: data.size
-    };
-});
+    }));
 
-        
-        console.log("New Product:", newprod)
-        try {
-            const uploadproduct = new ProductModal({
-                product_brand,
-                product_variant_name,
-                product_sp,
-                product_mrp,
-                product_discount,
-                product_size,
-                product_color,
-                product_description,
-                product_quantity,
-                product_availability,
-                product_imageurl: newprod
-            })
-            console.log(uploadproduct)
-            await uploadproduct.save()
-            return res.status(200).json({
-                products: uploadproduct
-            })
-        }
-        catch (error) {
-            return res.status(400).json({
-                error: error
-            })
-        }
+    try {
+        const uploadproduct = new ProductModal({
+            product_brand,
+            product_variant_name,
+            product_sp,
+            product_mrp,
+            product_discount,
+            product_size,
+            product_color,
+            product_description,
+            product_quantity,
+            product_availability,
+            product_imageurl: newprod
+        });
+
+        await uploadproduct.save();
+
+        return res.status(200).json({
+            msg: "Product added successfully",
+            products: uploadproduct
+        });
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Product not added",
+            error
+        });
     }
+};
+
 
     static deleteproduct = async (req, res) => {
         const { product_id } = req.query
@@ -88,23 +100,16 @@ var newprod = productimagearr.map((data) => {
         //new images
         const productimagearr = req.files
         console.log(productimagearr)
-        if (req.files && req.files.length > 0) {
-            var newprod = productimagearr.map((data) => {
-                return {
-                    type: data.mimetype,
-                    name: data.filename,
-                    //path: `http://localhost:${process.env.PORT_NO}/` + data.path,
-                    // path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
-                    path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`
+if (productimagearr && productimagearr.length > 0) {
+    const newprod = productimagearr.map(data => ({
+        type: data.mimetype,
+        name: data.filename,
+        path: `${process.env.BASE_URL}/multipleuploadproducts/${data.filename}`,
+        size: data.size
+    }));
 
-
-
-                    size: data.size
-                }
-            })
-            console.log("New Product:", newprod)
-            updateData.product_imageurl = newprod
-        }
+    updateData.product_imageurl = newprod;
+}
         try {
             var data = await ProductModal.findById({ _id: product_id })
 
