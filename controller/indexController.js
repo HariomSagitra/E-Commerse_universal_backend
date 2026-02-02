@@ -6,9 +6,6 @@ import dotenv from 'dotenv'
 import transporter from '../utility/EmailConfig.js'
 dotenv.config({ path: "./config/config.env" })
 
-//npm i bcrypt
-//npm i jsonwebtoken
-
 class IndexController {
 
     static register = async (req, res) => {
@@ -208,11 +205,11 @@ class IndexController {
             const { product_variant_name, priceMin, priceMax, ratingMin, inStock } = req.query;
             console.log(req.query)
 
-            // Build filter object
+            
             let filter = {};
 
             if (product_variant_name) {
-                // Split comma-separated string into an array
+               
                 const categoryFilter = product_variant_name
                     ? product_variant_name.split(',').map(cat => cat.trim())
                     : [];
@@ -221,7 +218,7 @@ class IndexController {
                         $in: categoryFilter } }
                     : {};
                 console.log(filter)    
-                // filter.product_category = filter;
+                
             }
             if (priceMin || priceMax) {
                 filter.product_sellingprice = {};
@@ -237,7 +234,7 @@ class IndexController {
                 filter.product_availability = "In Stock"
             }
             console.log(filter)
-            // Fetch products based on filters
+            
             const products = await ProductModal.find(filter);
             res.status(200).json(products);
         } catch (err) {
