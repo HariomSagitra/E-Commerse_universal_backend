@@ -3,10 +3,6 @@ dotenv.config();
 
 console.log("RAZORPAY KEY =", process.env.RAZORPAY_API_KEY);
 
-// //dotenv.config();
-// dotenv.config({
-//     path:"./config/config.env"
-// })
 import Razorpay from "razorpay";
 
 
