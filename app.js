@@ -1,3 +1,11 @@
+import fs from "fs";
+
+const uploadDir = "./multipleuploadproducts";
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 
 import dotenv from 'dotenv'
 dotenv.config(); 
