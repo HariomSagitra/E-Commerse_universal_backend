@@ -114,28 +114,17 @@ static product = async (req, res) => {
   try {
     const { product_id } = req.query
 
-    if (!product_id) {
-      return res.status(400).json({ msg: "Product ID required" })
-    }
-
     const product = await ProductModal.findById(product_id)
     if (!product) {
       return res.status(404).json({ msg: "Product not found" })
     }
 
-    const productObj = product.toObject()
-
-    // ✅ CORRECT IMAGE URL
-    productObj.product_image =
-      `${process.env.BASE_URL}/multipleuploadproducts/${product.product_image}`
-
+    // ❌ koi fake field add mat karo
     return res.status(200).json({
-      singleproduct: productObj
+      singleproduct: product
     })
   } catch (error) {
-    return res.status(400).json({
-      msg: "Invalid product id"
-    })
+    return res.status(400).json({ msg: "Invalid product id" })
   }
 }
 
