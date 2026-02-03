@@ -96,19 +96,49 @@ class IndexController {
             })
         }
     }
+    // static product = async (req, res) => {
+    //     const {product_id} = req.query
+    //     try {
+    //         var product = await ProductModal.findOne({_id:product_id})
+    //         return res.status(200).json({
+    //             "singleproduct": product
+    //         })
+    //     } catch (error) {
+    //         return res.status(400).json({
+    //                error
+    //         })
+    //     }
+    // }
+
     static product = async (req, res) => {
-        const {product_id} = req.query
-        try {
-            var product = await ProductModal.findOne({_id:product_id})
-            return res.status(200).json({
-                "singleproduct": product
-            })
-        } catch (error) {
-            return res.status(400).json({
-                   error
-            })
-        }
+  try {
+    const { product_id } = req.query
+
+    if (!product_id) {
+      return res.status(400).json({ msg: "Product ID required" })
     }
+
+    const product = await ProductModal.findById(product_id)
+    if (!product) {
+      return res.status(404).json({ msg: "Product not found" })
+    }
+
+    const productObj = product.toObject()
+
+    // 🔥 IMAGE FULL URL FIX
+    productObj.product_image =
+      `${process.env.BASE_URL}/${product.product_image}`
+
+    return res.status(200).json({
+      singleproduct: productObj
+    })
+  } catch (error) {
+    return res.status(400).json({
+      msg: "Invalid product id"
+    })
+  }
+}
+
 
     static senduserpasswordresetemail = async (req, res) => {
         const { email } = req.body
