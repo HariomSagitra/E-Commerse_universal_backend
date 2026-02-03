@@ -110,7 +110,7 @@ class IndexController {
     //     }
     // }
 
-    static product = async (req, res) => {
+static product = async (req, res) => {
   try {
     const { product_id } = req.query
 
@@ -125,9 +125,9 @@ class IndexController {
 
     const productObj = product.toObject()
 
-    // 🔥 IMAGE FULL URL FIX
+    // ✅ CORRECT IMAGE URL
     productObj.product_image =
-      `${process.env.BASE_URL}/${product.product_image}`
+      `${process.env.BASE_URL}/multipleuploadproducts/${product.product_image}`
 
     return res.status(200).json({
       singleproduct: productObj
