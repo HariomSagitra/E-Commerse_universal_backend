@@ -314,9 +314,14 @@ class CustomerController {
         razorpay_signature,
       });
       console.log(result);
-     res.redirect(
-  `https://e-commerse-universal-frontent2.onrender.com/customer/paymentsuccess?reference=${razorpay_payment_id}`
-);
+//      res.redirect(
+//   `https://e-commerse-universal-frontent2.onrender.com/customer/paymentsuccess?reference=${razorpay_payment_id}`
+// );
+      res.status(200).json({
+  success: true,
+  payment_id: razorpay_payment_id
+});
+
 
     } else {
       res.status(400).json({
